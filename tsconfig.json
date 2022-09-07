@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "lib": ["es2017"],
+    "module": "commonjs",
+    "target": "es6",
+    "moduleResolution": "Node",
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "strict": true,
+    "removeComments": true,
+    "useUnknownInCatchVariables": false,
+    "types": ["node"],
+    "esModuleInterop": true
+  },
+  "include": ["actions", "bin", "commands", "lib"],
+  "exclude": ["node_modules", "e2e", "templates"]
+}

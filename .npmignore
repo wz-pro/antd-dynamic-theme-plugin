@@ -1,0 +1,11 @@
+node_modules
+.gitignore
+.eslint*
+.prettierrc
+.idea
+package-lock.json
+
+**/*.ts
+*.ts
+
+./tsconfig.json

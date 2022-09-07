@@ -1,0 +1,8 @@
+/node_modules
+.idea
+.cache
+
+# output
+lib/**/*.js
+lib/**/*.d.ts
+package-lock.json

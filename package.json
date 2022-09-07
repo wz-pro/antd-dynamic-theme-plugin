@@ -1,0 +1,59 @@
+{
+  "name": "antd-dynamic-theme-plugin",
+  "version": "1.0.0",
+  "description": "antd light and dark theme dynamic change",
+  "licenses": "MIT",
+  "main": "lib/index.js",
+  "repository": "wz-pro/antd-dynamic-theme-plugin",
+  "author": "wz-pro",
+  "homepage": "https://github.com/wz-pro/antd-dynamic-theme-plugin",
+  "bugs": "https://github.com/wz-pro/antd-dynamic-theme-plugin/issues",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "scripts": {
+    "start": "tsc -w",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
+    "prepublish": "npm run build"
+  },
+  "license": "ISC",
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{css,less,json,html,md,markdown}": [
+      "prettier --write"
+    ]
+  },
+  "peerDependencies": {
+    "less": ">=4.0.0",
+    "less-loader": ">=8.0.0",
+    "webpack": ">=5.0.0"
+  },
+  "devDependencies": {
+    "@types/less": "^3.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.2"
+  },
+  "dependencies": {
+    "postcss": "^8.4.16",
+    "postcss-selector-namespace": "^3.0.1"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "antd",
+    "theme",
+    "less",
+    "antd-dynamic-theme-plugin"
+  ]
+}
