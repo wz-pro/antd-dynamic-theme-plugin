@@ -15,9 +15,11 @@
 
 </div>
 
-[![npm version](https://img.shields.io/npm/v/ts-loader.svg)](https://www.npmjs.com/package/antd-dynamic-theme-plugin)
-[![Downloads](http://img.shields.io/npm/dm/ts-loader.svg)](https://www.npmjs.com/package/antd-dynamic-theme-plugin)
-[![node version](https://img.shields.io/node/v/ts-loader.svg)](https://www.npmjs.com/package/ts-loader)
+[![npm version](https://img.shields.io/badge/npm-v8.14.0-blue.svg)](https://www.npmjs.com/package/antd-dynamic-theme-plugin)
+[![webpack version](https://img.shields.io/badge/webpack->=5.0.0-75AFCC.svg)](https://webpack.js.org)
+[![node version](https://img.shields.io/badge/node->=14.15.0-026E00.svg)](https://nodejs.org/en/)
+[![typescript version](https://img.shields.io/badge/typescript-*-3178C6.svg)](https://nodejs.org/en/)
+[![less version](https://img.shields.io/badge/less->=4.0.0-1D365D.svg)](https://nodejs.org/en/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 # Antd Dynamic Theme Plugin
@@ -87,7 +89,7 @@ Now, you can use variables directly in less files without importing dark.less or
 
 ```index.less
 .root {
-  color: @my-clor;
+  color: @my-color;
 }
 ```
 
