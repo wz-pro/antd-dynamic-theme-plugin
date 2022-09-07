@@ -14,6 +14,7 @@ export interface ThemePluginOptions {
   darkFileName: string;
   lightFileName: string;
   themeClassPre: string;
+  initTheme: 'dark' | 'less';
 }
 
 const defaultOptions: ThemePluginOptions = {
@@ -22,6 +23,7 @@ const defaultOptions: ThemePluginOptions = {
   themeDir: 'src/theme',
   darkFileName: 'dark.less',
   lightFileName: 'light.less',
+  initTheme: 'dark',
 };
 
 export type CompilerOptions = WebpackOptionsNormalized & {
@@ -171,14 +173,19 @@ export default class AntdDynamicThemePlugin {
           const entryContent = assets[assetsName].source() as string;
           const preName = `${this.options.themeClassPre}-`;
           const scriptContent = `
-        window.THEMEVARS = ${JSON.stringify(themeCache)};
-        window.changeGlobalTheme = function(isDark){
-          const el = document.getElementsByTagName('body');
-          if (el && el.length) {
-            if(isDark) el[0].setAttribute('class', '${preName}dark')
-            else el[0].setAttribute('class', '${preName}light')
-          }
-        };
+          (function(){
+             const el = document.getElementsByTagName('body');
+             window.THEMEVARS = ${JSON.stringify(themeCache)};
+             window.changeGlobalTheme = function(isDark){
+               if (el && el.length) {
+                 if(isDark) el[0].setAttribute('class', '${preName}dark')
+                 else el[0].setAttribute('class', '${preName}light')
+               }
+             };
+             if(el) changeGlobalTheme(${
+               this.options.initTheme === 'dark' ? 'true' : 'false'
+             }); 
+          })()
         `;
           const newEntry = entryContent.replace(
             /(\(\s*\(\s*\)\s*=>\s*\{)/,
