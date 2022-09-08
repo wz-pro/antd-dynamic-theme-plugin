@@ -6,3 +6,4 @@
 lib/**/*.js
 lib/**/*.d.ts
 package-lock.json
+coverage

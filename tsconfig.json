@@ -11,9 +11,9 @@
     "strict": true,
     "removeComments": true,
     "useUnknownInCatchVariables": false,
-    "types": ["node"],
+    "types": ["node", "jest"],
     "esModuleInterop": true
   },
-  "include": ["actions", "bin", "commands", "lib"],
-  "exclude": ["node_modules", "e2e", "templates"]
+  "include": ["lib"],
+  "exclude": ["node_modules"]
 }

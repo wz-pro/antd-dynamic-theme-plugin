@@ -34,8 +34,7 @@ export interface Compiler extends webpack.Compiler {
   options: CompilerOptions;
 }
 
-export interface LoaderContext
-  extends webpack.LoaderContext<ThemePluginOptions> {
+export interface LoaderContext extends webpack.LoaderContext<ThemePluginOptions> {
   _compiler: Compiler;
 }
 
@@ -74,16 +73,12 @@ export default class AntdDynamicThemePlugin {
   }
 
   private getLessAddictionData(
-    originData:
-      | string
-      | ((content: string, context: LoaderContext) => Promise<string>),
+    originData: string | ((content: string, context: LoaderContext) => Promise<string>),
   ) {
     const isFunc = typeof originData === 'function';
     return async (content: string, context: LoaderContext) => {
       const vars = await this.lessDefaultAddictionData();
-      const newContent = isFunc
-        ? await originData(content, context)
-        : `${originData}${content}`;
+      const newContent = isFunc ? await originData(content, context) : `${originData}${content}`;
       if (/@import/.test(newContent)) {
         return newContent.replace(/(@import.*;)/g, `$1${vars}`);
       }
@@ -100,8 +95,7 @@ export default class AntdDynamicThemePlugin {
         },
       };
     }
-    if (typeof loadInfo === 'string' || typeof loadInfo === 'function')
-      return loadInfo;
+    if (typeof loadInfo === 'string' || typeof loadInfo === 'function') return loadInfo;
     const userAdditionalData = loadInfo?.options?.additionalData || '';
     return {
       loader: loadInfo.loader,
@@ -116,17 +110,13 @@ export default class AntdDynamicThemePlugin {
     compiler.hooks.environment.tap(this.pluginName, () => {
       const allRules = compiler.options.module.rules as RuleSetRule[];
       const lessRules = allRules.filter((item) => {
-        if (Object.prototype.toString.call(item.test) !== '[object RegExp]')
-          return false;
+        if (Object.prototype.toString.call(item.test) !== '[object RegExp]') return false;
         return (item.test as RegExp)?.test('index.less');
       });
       const loaderPath = path.resolve(__dirname, 'theme-var-loader.cjs');
       const loader = { loader: loaderPath, options: this.options };
       (lessRules as RuleSetRule[]).forEach((ruleItem) => {
-        if (
-          ruleItem.use === 'string' &&
-          /less-loader/.test(ruleItem.use as string)
-        ) {
+        if (ruleItem.use === 'string' && /less-loader/.test(ruleItem.use as string)) {
           ruleItem.use = [loader, this.formatLessLoader(ruleItem.use)];
           return null;
         }
@@ -141,9 +131,7 @@ export default class AntdDynamicThemePlugin {
           return null;
         }
         const lessLoaderIndex = ruleItem.use.length - 1;
-        ruleItem.use[lessLoaderIndex] = this.formatLessLoader(
-          ruleItem.use[lessLoaderIndex],
-        );
+        ruleItem.use[lessLoaderIndex] = this.formatLessLoader(ruleItem.use[lessLoaderIndex]);
         ruleItem.use.splice(lessLoaderIndex, 0, loader);
       });
     });
@@ -160,15 +148,11 @@ export default class AntdDynamicThemePlugin {
             compiler.options.antdThemeCache = themeCache;
           }
           const entryName = Object.keys(compiler.options.entry)[0];
-          const chunkItem = [...compilation.chunks].find(
-            (item) => item.name === entryName,
-          );
+          const chunkItem = [...compilation.chunks].find((item) => item.name === entryName);
           if (!chunkItem) {
             throw new Error('entry file not found');
           }
-          const assetsName = [...chunkItem.files].find((item) =>
-            item.endsWith('js'),
-          );
+          const assetsName = [...chunkItem.files].find((item) => item.endsWith('js'));
           if (!assetsName) return null;
           const entryContent = assets[assetsName].source() as string;
           const preName = `${this.options.themeClassPre}-`;
@@ -182,15 +166,10 @@ export default class AntdDynamicThemePlugin {
                  else el[0].setAttribute('class', '${preName}light')
                }
              };
-             if(el) changeGlobalTheme(${
-               this.options.initTheme === 'dark' ? 'true' : 'false'
-             }); 
+             if(el) changeGlobalTheme(${this.options.initTheme === 'dark' ? 'true' : 'false'}); 
           })()
         `;
-          const newEntry = entryContent.replace(
-            /(\(\s*\(\s*\)\s*=>\s*\{)/,
-            `$1${scriptContent}`,
-          );
+          const newEntry = entryContent.replace(/(\(\s*\(\s*\)\s*=>\s*\{)/, `$1${scriptContent}`);
           compilation.updateAsset(assetsName, new sources.RawSource(newEntry));
           return callback();
         },

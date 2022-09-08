@@ -8,7 +8,7 @@ const cssVarReg = /--([^;]+)\s*:\s*([^;]+);/g;
 
 const solveImportItem = (parentPath: string, content: string) => {
   importReg.lastIndex = 0;
-  const match = importReg.exec(content) as RegExpExecArray;
+  const match = importReg.exec(content) as RegExpMatchArray;
   const matchFile = match[1].endsWith('.less') ? match[1] : `${match[1]}.less`;
   return {
     text: match[0],
@@ -20,7 +20,11 @@ const solveImportItem = (parentPath: string, content: string) => {
 
 const getImports = (parentPath: string, fileContent: string) => {
   const result = fileContent.match(importReg);
-  return result ? result.map((item) => solveImportItem(parentPath, item)) : [];
+  if (result) {
+    console.log('hello result:', result);
+    return result.map((item) => solveImportItem(parentPath, item));
+  }
+  return [];
 };
 
 function getLessVars(filePath: string): string {
@@ -28,20 +32,22 @@ function getLessVars(filePath: string): string {
   const imports = getImports(path.dirname(filePath), fileText);
   const importVars: string[] = [];
   imports.forEach((item) => {
-    importVars.push(getLessVars(item.path));
+    item && importVars.push(getLessVars(item.path));
   });
   const vars = fileText.match(varReg);
-  return vars
-    ? `${importVars.join('')}${vars.join('')}`
-    : `${importVars.join('')}`;
+  if (vars) {
+    return `${importVars.join('')}${vars.join('')}`;
+  }
+  return `${importVars.join('')}`;
 }
 
-export default async function (filePath: string) {
+async function lessVars(filePath: string) {
   const lessCode = getLessVars(filePath);
   const keys = (lessCode.match(keyReg) || []).map((item) => {
     const key = item.substring(1, item.length - 1);
     return `--${key}:@${key}`;
   });
+  if (!keys.length) return {};
   const allCode = `
   ${lessCode}
    .css-var{${keys.join(';')};}
@@ -56,3 +62,5 @@ export default async function (filePath: string) {
   } while (cssVarReg.lastIndex);
   return result;
 }
+
+export default lessVars;
