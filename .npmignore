@@ -6,7 +6,7 @@ node_modules
 package-lock.json
 coverage
 
-**/*.ts
 *.ts
+!*.d.ts
 
-./tsconfig.json
+tsconfig.json

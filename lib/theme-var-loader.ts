@@ -52,7 +52,11 @@ export const themeVarLoader = function (this: LoaderContext) {
   const name = isDark ? 'dark' : 'light';
   const preName = `.${themeClassPre}-${name}`;
   (async () => {
-    const antLess = path.resolve(root, 'node_modules', 'antd/dist/antd.less');
+    const antLess = path.resolve(
+      root,
+      'node_modules',
+      `antd/dist/antd${isDark ? '.dark' : ''}.less`,
+    );
     const lessVars = await lessToJS(this.resourcePath);
     setCacheData(this, name, lessVars);
     const { css: antdCss } = await less.render(fs.readFileSync(antLess, 'utf-8'), {

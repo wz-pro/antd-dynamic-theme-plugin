@@ -1,6 +1,6 @@
 {
   "name": "antd-dynamic-theme-plugin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "antd light and dark theme dynamic change",
   "licenses": "MIT",
   "main": "lib/index.js",

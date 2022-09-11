@@ -42,7 +42,7 @@ export default class AntdDynamicThemePlugin {
   private readonly pluginName = 'AntdDynamicThemePlugin';
   private readonly options: ThemePluginOptions;
 
-  constructor(userOptions: Partial<ThemePluginOptions>) {
+  constructor(userOptions?: Partial<ThemePluginOptions>) {
     this.options = { ...defaultOptions, ...userOptions };
   }
 
