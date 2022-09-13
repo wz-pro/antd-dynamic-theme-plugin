@@ -1,9 +1,12 @@
-/node_modules
+node_modules
 .idea
 .cache
 
 # output
 lib/**/*.js
 lib/**/*.d.ts
+example/package-lock.json
+example/dist
+example/node_modules
 package-lock.json
 coverage

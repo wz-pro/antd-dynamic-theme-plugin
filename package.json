@@ -29,10 +29,10 @@
     ]
   },
   "peerDependencies": {
+    "antd": "^4.23.1",
     "less": ">=4.0.0",
     "less-loader": ">=8.0.0",
-    "webpack": ">=5.0.0",
-    "antd": "*"
+    "webpack": ">=5.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.0.0",
