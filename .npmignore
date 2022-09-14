@@ -8,8 +8,6 @@ coverage
 
 example
 
-**/*.ts
-*.ts
-!*.d.ts
+src
 
 tsconfig.json

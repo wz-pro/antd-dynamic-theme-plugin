@@ -1,6 +1,6 @@
 import getCompiler from './getCompiler';
 import { Configuration } from 'webpack';
-import AntdDynamicThemePlugin from '../../lib';
+import AntdDynamicThemePlugin from '../../src';
 import path from 'path';
 
 export default function (config: Configuration = {}) {

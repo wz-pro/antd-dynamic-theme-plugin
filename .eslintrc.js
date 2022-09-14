@@ -7,7 +7,7 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['lib/**/*.js', 'example/**/*'],
+  ignorePatterns: ['src/**/*.js', 'example/**/*', 'esm/**/*', 'lib/**/*'],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',

@@ -44,6 +44,7 @@ export default class AntdDynamicThemePlugin {
 
   constructor(userOptions?: Partial<ThemePluginOptions>) {
     this.options = { ...defaultOptions, ...userOptions };
+    console.log('hello test');
   }
 
   private async getThemeVars() {

@@ -4,6 +4,7 @@
   "description": "antd light and dark theme dynamic change",
   "licenses": "MIT",
   "main": "lib/index.js",
+  "module": "esm/index.js",
   "repository": "wz-pro/antd-dynamic-theme-plugin",
   "author": "wz-pro",
   "homepage": "https://github.com/wz-pro/antd-dynamic-theme-plugin",
@@ -12,8 +13,8 @@
     "node": ">= 14.15.0"
   },
   "scripts": {
-    "start": "tsc -w",
-    "build": "tsc",
+    "start": "bfe -d -w -t node",
+    "build": "bfe -t node",
     "test": "jest --coverage",
     "prepare": "husky install",
     "prepublish": "npm run build"

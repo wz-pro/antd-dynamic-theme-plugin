@@ -1,4 +1,4 @@
-import lessVars from '../lib/less-vars';
+import lessVars from '../src/less-vars';
 import path from 'path';
 
 describe('less var to js', () => {
