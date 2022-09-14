@@ -10,5 +10,6 @@ example
 
 **/*.ts
 *.ts
+!*.d.ts
 
-./tsconfig.json
+tsconfig.json

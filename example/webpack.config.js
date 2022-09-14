@@ -1,7 +1,12 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ThemePlugin = require('../lib/index');
+// import  webpack from 'webpack';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
+// import HtmlWebpackPlugin from 'html-webpack-plugin';
+// import ThemePlugin from 'antd-dynamic-theme-plugin';
+const ThemePlugin = require('antd-dynamic-theme-plugin').default;
 
 module.exports = {
   entry: [
@@ -45,7 +50,7 @@ module.exports = {
       template: path.resolve(__dirname, 'public/index.html'),
       inject: true,
     }),
-    new ThemePlugin(),
+    new ThemePlugin({}),
   ],
   devServer: {
     static: path.join(process.cwd(), 'dist'),
