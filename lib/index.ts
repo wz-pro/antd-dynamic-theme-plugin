@@ -73,13 +73,13 @@ export default class AntdDynamicThemePlugin {
   }
 
   private getLessAddictionData(
-    originData: string | ((content: string, context: LoaderContext) => Promise<string>),
+    originData: string | ((content: string, context: LoaderContext) => Promise<string>) = '',
   ) {
     const isFunc = typeof originData === 'function';
     return async (content: string, context: LoaderContext) => {
       const vars = await this.lessDefaultAddictionData();
       const newContent = isFunc ? await originData(content, context) : `${originData}${content}`;
-      if (/@import/.test(newContent)) {
+      if (/^@import/.test(newContent.trim())) {
         return newContent.replace(/(@import.*;)/g, `$1${vars}`);
       }
       return `${vars}${newContent}`;
@@ -91,7 +91,7 @@ export default class AntdDynamicThemePlugin {
       return {
         loader: require.resolve('less-loader'),
         options: {
-          additionalData: this.lessDefaultAddictionData.bind(this),
+          additionalData: this.getLessAddictionData(),
         },
       };
     }

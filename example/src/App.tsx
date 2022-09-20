@@ -11,11 +11,13 @@ export default function () {
   };
 
   return (
-    <div>
+    <div className="root-container">
       <Button onClick={onBtnClick} type="primary">
         修改主题
       </Button>
-      <p style={{ color: primaryColor }}>click up btn to change theme</p>
+      <p style={{ color: primaryColor, marginTop: 10 }}>click up btn to change theme</p>
+      <p className="test-text">less file test</p>
+      <p className="test-more">test import</p>
     </div>
   );
 }

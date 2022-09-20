@@ -21,7 +21,6 @@ const solveImportItem = (parentPath: string, content: string) => {
 const getImports = (parentPath: string, fileContent: string) => {
   const result = fileContent.match(importReg);
   if (result) {
-    console.log('hello result:', result);
     return result.map((item) => solveImportItem(parentPath, item));
   }
   return [];

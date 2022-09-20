@@ -1,10 +1,18 @@
+@import './more';
+
 .root-container {
+  .test-text {
+    color: @test-color;
+  }
+  .test-more {
+    .test();
+  }
 }
 
-.ant-theme-dark {
+.antd-theme-dark {
   .root-container();
 }
 
-.ant-theme-light {
+.antd-theme-light {
   .root-container();
 }

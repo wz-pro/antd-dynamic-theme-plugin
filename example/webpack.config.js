@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const ThemePlugin = require('antd-dynamic-theme-plugin');
+// const ThemePlugin = require('../index');
 
 module.exports = {
   entry: [
@@ -17,6 +18,9 @@ module.exports = {
     publicPath: '/',
     filename: '[name].js',
     globalObject: 'this',
+  },
+  cache: {
+    type: 'filesystem',
   },
   module: {
     rules: [
@@ -39,6 +43,7 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.less', '.css'],
   },
   plugins: [
+    new ProgressBarPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -46,7 +51,6 @@ module.exports = {
       template: path.resolve(__dirname, 'public/index.html'),
       inject: true,
     }),
-    new ProgressBarPlugin(),
     new ThemePlugin(),
   ],
   devServer: {
