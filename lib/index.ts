@@ -91,7 +91,7 @@ export default class AntdDynamicThemePlugin {
       return {
         loader: require.resolve('less-loader'),
         options: {
-          additionalData: this.lessDefaultAddictionData,
+          additionalData: this.lessDefaultAddictionData.bind(this),
         },
       };
     }

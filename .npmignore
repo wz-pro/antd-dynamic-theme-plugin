@@ -5,6 +5,7 @@ node_modules
 .idea
 package-lock.json
 coverage
+example
 
 *.ts
 !*.d.ts
