@@ -1,10 +1,11 @@
 {
   "name": "antd-dynamic-theme-plugin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "antd light and dark theme dynamic change",
   "licenses": "MIT",
   "main": "index.js",
   "module": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": "wz-pro/antd-dynamic-theme-plugin",
   "author": "wz-pro",
   "homepage": "https://github.com/wz-pro/antd-dynamic-theme-plugin",
