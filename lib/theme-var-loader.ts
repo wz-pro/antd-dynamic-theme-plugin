@@ -41,7 +41,8 @@ export const themeVarLoader = function (this: LoaderContext) {
   if (/antd\/.*style\/.*\.less$/.test(this.resourcePath)) {
     return '';
   }
-  const { themeDir, darkFileName, lightFileName, themeClassPre, root } = this.getOptions();
+  const { themeDir, darkFileName, lightFileName, themeClassPre, root, antdVersion } =
+    this.getOptions();
   const darkPath = path.resolve(root, themeDir, darkFileName);
   const lightPath = path.resolve(root, themeDir, lightFileName);
 
@@ -51,22 +52,30 @@ export const themeVarLoader = function (this: LoaderContext) {
   const isDark = darkPath === this.resourcePath;
   const name = isDark ? 'dark' : 'light';
   const preName = `.${themeClassPre}-${name}`;
-  (async () => {
-    const antLess = path.resolve(
-      root,
-      'node_modules',
-      `antd/dist/antd${isDark ? '.dark' : ''}.less`,
-    );
-    const lessVars = await lessToJS(this.resourcePath);
-    setCacheData(this, name, lessVars);
-    const { css: antdCss } = await less.render(fs.readFileSync(antLess, 'utf-8'), {
-      filename: antLess,
-      javascriptEnabled: true,
-      modifyVars: lessVars,
-    });
-    const output = postcss()
-      .use(selectorNamespace({ namespace: preName }))
-      .process(antdCss).css;
-    callback(null, solveLessVars(themeClassPre, preName, lessVars, output));
-  })();
+  if (antdVersion && antdVersion >= 5) {
+    (async () => {
+      const lessVars = await lessToJS(this.resourcePath);
+      setCacheData(this, name, lessVars);
+      callback(null, solveLessVars(themeClassPre, preName, lessVars, ''));
+    })();
+  } else {
+    (async () => {
+      const antLess = path.resolve(
+        root,
+        'node_modules',
+        `antd/dist/antd${isDark ? '.dark' : ''}.less`,
+      );
+      const lessVars = await lessToJS(this.resourcePath);
+      setCacheData(this, name, lessVars);
+      const { css: antdCss } = await less.render(fs.readFileSync(antLess, 'utf-8'), {
+        filename: antLess,
+        javascriptEnabled: true,
+        modifyVars: lessVars,
+      });
+      const output = postcss()
+        .use(selectorNamespace({ namespace: preName }))
+        .process(antdCss).css;
+      callback(null, solveLessVars(themeClassPre, preName, lessVars, output));
+    })();
+  }
 };

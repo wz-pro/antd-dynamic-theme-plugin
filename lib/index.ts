@@ -14,7 +14,7 @@ export interface ThemePluginOptions {
   darkFileName: string;
   lightFileName: string;
   themeClassPre: string;
-  initTheme: 'dark' | 'less';
+  initTheme: 'dark' | 'light';
 }
 
 const defaultOptions: ThemePluginOptions = {
@@ -34,16 +34,25 @@ export interface Compiler extends webpack.Compiler {
   options: CompilerOptions;
 }
 
-export interface LoaderContext extends webpack.LoaderContext<ThemePluginOptions> {
+export interface LoaderContext
+  extends webpack.LoaderContext<ThemePluginOptions & { antdVersion?: 4 | 5 }> {
   _compiler: Compiler;
 }
 
 export default class AntdDynamicThemePlugin {
   private readonly pluginName = 'AntdDynamicThemePlugin';
   private readonly options: ThemePluginOptions;
+  private antdVersion = 4;
 
   constructor(userOptions?: Partial<ThemePluginOptions>) {
+    this.getAntdVersion();
     this.options = { ...defaultOptions, ...userOptions };
+  }
+
+  private async getAntdVersion() {
+    const pkg = await import(path.resolve(process.cwd(), 'package.json'));
+    const version = (pkg.dependencies.antd || pkg.devDependencies.antd).replace('^', '');
+    this.antdVersion = Number(version.split('.')[0]);
   }
 
   private async getThemeVars() {
@@ -114,7 +123,10 @@ export default class AntdDynamicThemePlugin {
         return (item.test as RegExp)?.test('index.less');
       });
       const loaderPath = path.resolve(__dirname, 'theme-var-loader.cjs');
-      const loader = { loader: loaderPath, options: this.options };
+      const loader = {
+        loader: loaderPath,
+        options: { antdVersion: this.antdVersion, ...this.options },
+      };
       (lessRules as RuleSetRule[]).forEach((ruleItem) => {
         if (ruleItem.use === 'string' && /less-loader/.test(ruleItem.use as string)) {
           ruleItem.use = [loader, this.formatLessLoader(ruleItem.use)];
