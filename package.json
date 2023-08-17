@@ -1,6 +1,6 @@
 {
   "name": "antd-dynamic-theme-plugin",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "antd light and dark theme dynamic change",
   "licenses": "MIT",
   "main": "index.js",
@@ -56,12 +56,14 @@
     "postcss-selector-namespace": "^3.0.1"
   },
   "keywords": [
+    "antd-theme",
+    "antd-theme-plugin",
+    "dynamic-antd-theme",
+    "antd-dynamic-theme-plugin",
     "webpack",
     "plugin",
     "antd",
     "theme",
-    "less",
-    "antd-theme-plugin",
-    "antd-dynamic-theme-plugin"
+    "less"
   ]
 }
